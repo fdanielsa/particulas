@@ -47,6 +47,14 @@ var Particle = function(args) {
 	this.x = args.x || (Math.random() * window.innerWidth);
 	this.y = args.y || (Math.random() * window.innerHeight);
 	this.radius = args.radius || (Math.random() * 7);
+	//se renderizo el context
+	this.draw = function(ctx) {
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, this.radius, PI2, false);
+		ctx.stroke();
+		ctx.fill();
+		ctx.closePath();
+	}
 	return this;
 
 }
@@ -56,11 +64,8 @@ function render(){
 	context.clearRect(0,0, maxWidth, maxHeight);
 	for (var i = 0; i < particles.length; i++) {
 		var particle = particles[i];
-		context.beginPath();
-		context.arc(particle.x, particle.y, particle.radius, PI2, false);
-		context.stroke();
-		context.fill();
-		context.closePath();
+		//se cambio context por draw
+		particle.draw(context);
 	};
 
 }
